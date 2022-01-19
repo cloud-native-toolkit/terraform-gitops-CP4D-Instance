@@ -82,24 +82,24 @@ variable "server_name" {
 
 
 variable cp4d_instance_name {
-  type = "string"
+  type = string
   description = "CP4D instance name.  Default is ibmcpd-cr"
   default = "ibmcpd-cr"
 }
 
 variable license_accept {
-  type = "bool"
+  type = bool
   description = "License acceptance"
   default = "true"
 }
 variable license_type {
-  type = "string"
+  type = string
   description = "License type (Enterprise | Standard)"
   default = "Enterprise"
 }
 
 variable "storage_vendor" {
-  type = "string"
+  type = string
   description = "Storage vendor for CPD (ocs | portworx | ibm-spectrum-scale-sc | RWX-storage-class)"
   default = "ocs"
 }
