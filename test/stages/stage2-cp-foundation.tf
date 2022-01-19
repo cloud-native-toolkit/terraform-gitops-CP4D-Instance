@@ -1,5 +1,5 @@
 module "gitops_cp_foundation" {
-  source = "https://github.com/cloud-native-toolkit/terraform-gitops-cp-foundational-services"
+  source = "github.com/cloud-native-toolkit/terraform-gitops-cp-foundational-services"
 
   gitops_config = module.gitops.gitops_config
   git_credentials = module.gitops.git_credentials
