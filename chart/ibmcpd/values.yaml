@@ -1,0 +1,10 @@
+# Default values for ibm-ace-operator.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+
+cp4d-namespace: cp4d-instance
+cp4d-instance-name: ibmcpd-cr
+
+license-accept: true
+license: Enterprise
+storage-vendor: ocs

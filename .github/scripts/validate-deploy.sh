@@ -5,7 +5,7 @@ GIT_TOKEN=$(cat git_token)
 
 export KUBECONFIG=$(cat .kubeconfig)
 NAMESPACE=$(cat .namespace)
-COMPONENT_NAME=$(jq -r '.name // "my-module"' gitops-output.json)
+COMPONENT_NAME=$(jq -r '.name // "cp4d-instance"' gitops-output.json)
 BRANCH=$(jq -r '.branch // "main"' gitops-output.json)
 SERVER_NAME=$(jq -r '.server_name // "default"' gitops-output.json)
 LAYER=$(jq -r '.layer_dir // "2-services"' gitops-output.json)
@@ -50,21 +50,22 @@ else
   sleep 30
 fi
 
-DEPLOYMENT="${COMPONENT_NAME}-${BRANCH}"
 count=0
-until kubectl get deployment "${DEPLOYMENT}" -n "${NAMESPACE}" || [[ $count -eq 20 ]]; do
-  echo "Waiting for deployment/${DEPLOYMENT} in ${NAMESPACE}"
+until get ibmcpd ibmcpd-cr -n "${NAMESPACE}" || [[ $count -eq 20 ]]; do
+  echo "Waiting for ibmcpd/ibmcpd-cr in ${NAMESPACE}"
   count=$((count + 1))
   sleep 15
 done
 
 if [[ $count -eq 20 ]]; then
-  echo "Timed out waiting for deployment/${DEPLOYMENT} in ${NAMESPACE}"
+  echo "Timed out waiting for ibmcpd/ibmcpd-cr in ${NAMESPACE}"
   kubectl get all -n "${NAMESPACE}"
   exit 1
 fi
 
-kubectl rollout status "deployment/${DEPLOYMENT}" -n "${NAMESPACE}" || exit 1
+kubectl get Ibmcpd ibmcpd-cr
+kubectl get ZenService lite-cr 
+#kubectl get ZenService lite-cr -o jsonpath="{.status.url}{'\n'}"
 
 cd ..
 rm -rf .testrepo
