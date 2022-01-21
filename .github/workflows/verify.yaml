@@ -16,7 +16,8 @@ jobs:
     container: quay.io/ibmgaragecloud/cli-tools:v0.15
 
     strategy:
-      matrix:
+      matrix:        
+        testcase:
           - ocp4_latest_gitops
       #      max-parallel: 1
       fail-fast: false
