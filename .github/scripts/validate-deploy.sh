@@ -51,7 +51,7 @@ else
 fi
 
 count=0
-until get ibmcpd ibmcpd-cr -n "${NAMESPACE}" || [[ $count -eq 20 ]]; do
+until kubectl get ibmcpd ibmcpd-cr -n "${NAMESPACE}" || [[ $count -eq 20 ]]; do
   echo "Waiting for ibmcpd/ibmcpd-cr in ${NAMESPACE}"
   count=$((count + 1))
   sleep 15
