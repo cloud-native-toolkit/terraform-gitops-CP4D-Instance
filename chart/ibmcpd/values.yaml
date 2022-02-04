@@ -7,4 +7,4 @@ cp4d-instance-name: ibmcpd-cr
 
 license-accept: true
 license: Enterprise
-storage-vendor: ocs
+storage-vendor: portworx
