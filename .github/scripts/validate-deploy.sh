@@ -50,7 +50,7 @@ else
   sleep 30
 fi
 
-count=300
+count=120
 until [[ $count -eq 0 ]]; do
   echo "Pausing for $count seconds to wait for everything to settle down"
   count=$((count - 10))
