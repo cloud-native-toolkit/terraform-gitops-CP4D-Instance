@@ -73,8 +73,8 @@ fi
 STATUS=$(kubectl get Ibmcpd ibmcpd-cr -n "${NAMESPACE}" -o jsonpath="{.status.controlPlaneStatus}{'\n'}")
 count=0
 until [[ $STATUS == "Completed" ]] || [[ $count -eq 360 ]]; do
-  ELAPSED=$((count*15/60))
-  echo "ibmcpd/ibmcpd-cr status: ${STATUS} - $ELAPSED of 90min elapsed"
+  ELAPSED=$((100*count*15/60))
+  echo "ibmcpd/ibmcpd-cr status: ${STATUS}  ($(echo $ELAPSED | sed -e 's/..$/.&/;t' -e 's/.$/.0&/') of 90 minutes elapsed)"
   STATUS=$(kubectl get Ibmcpd ibmcpd-cr -n "${NAMESPACE}" -o jsonpath="{.status.controlPlaneStatus}{'\n'}")
   count=$((count + 1))
   sleep 15
@@ -91,8 +91,8 @@ fi
 STATUS=$(kubectl get ZenService lite-cr -n "${NAMESPACE}" -o jsonpath="{.status.zenStatus}{'\n'}")
 count=0
 until [[ $STATUS == "Completed" ]] || [[ $count -eq 360 ]]; do
-  ELAPSED=$((count*15/60))
-  echo "ZenService/lite-cr status: ${STATUS} - $ELAPSED of 90min elapsed"
+  ELAPSED=$((100*count*15/60))
+  echo "ZenService/lite-cr status: ${STATUS}  ($(echo $ELAPSED | sed -e 's/..$/.&/;t' -e 's/.$/.0&/') of 90 minutes elapsed)"
   STATUS=$(kubectl get ZenService lite-cr -n "${NAMESPACE}" -o jsonpath="{.status.zenStatus}{'\n'}")
   count=$((count + 1))
   sleep 15
