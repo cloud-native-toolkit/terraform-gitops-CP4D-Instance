@@ -46,9 +46,16 @@ if [[ $count -eq 20 ]]; then
   echo "Timed out waiting for namespace: ${NAMESPACE}"
   exit 1
 else
-  echo "Found namespace: ${NAMESPACE}. Sleeping for 30 seconds to wait for everything to settle down"
+  echo "Found namespace: ${NAMESPACE}"
   sleep 30
 fi
+
+count=300
+until [[ $count -eq 0 ]]; do
+  echo "Pausing for $count seconds to wait for everything to settle down"
+  count=$((count - 10))
+  sleep 10
+done
 
 count=0
 until kubectl get ibmcpd ibmcpd-cr -n "${NAMESPACE}" || [[ $count -eq 20 ]]; do
