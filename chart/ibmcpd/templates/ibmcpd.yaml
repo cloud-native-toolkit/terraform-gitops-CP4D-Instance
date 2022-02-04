@@ -1,10 +1,10 @@
 apiVersion: cpd.ibm.com/v1
 kind: Ibmcpd
 metadata:
-  name: {{ .Values.cp4d-instance-name }}                       # This is the recommended name, but you can change it
-  namespace: {{ .Values.cp4d-namespace }}                # Replace with the project where you will install Cloud Pak for Data
+  name: {{ .Values.cp4d_instance_name }}                       # This is the recommended name, but you can change it
+  namespace: {{ .Values.cp4d_namespace }}                # Replace with the project where you will install Cloud Pak for Data
 spec:
   license:
-    accept: {{ .Values.license-accept }} 
+    accept: {{ .Values.license_accept }} 
     license: {{ .Values.license }} 
-  storageVendor: {{ .Values.storage-vendor }} 
+  storageVendor: {{ .Values.storage_vendor }} 

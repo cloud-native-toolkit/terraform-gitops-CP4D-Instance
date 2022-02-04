@@ -4,11 +4,11 @@ locals {
   yaml_dir      = "${path.cwd}/.tmp/${local.name}/chart/${local.name}"
   service_url   = "http://${local.name}.${var.namespace}"
   values_content = {
-    cp4d-namespace = var.namespace
-    cp4d-instance-name = var.cp4d_instance_name
-    license-accept = var.license_accept
+    cp4d_namespace = var.namespace
+    cp4d_instance_name = var.cp4d_instance_name
+    license_accept = var.license_accept
     license = var.license_type
-    storage-vendor = var.storage_vendor
+    storage_vendor = var.storage_vendor
   }
   layer = "services"
   type  = "base"

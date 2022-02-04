@@ -2,6 +2,6 @@ apiVersion: operator.ibm.com/v1alpha1
 kind: OperandRequest
 metadata:
   name: empty-request
-  namespace: {{ .Values.cp4d-namespace }}        # Project where you will install Cloud Pak for Data
+  namespace: {{ .Values.cp4d_namespace }}        # Project where you will install Cloud Pak for Data
 spec:
   requests: []
