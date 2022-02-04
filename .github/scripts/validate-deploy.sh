@@ -70,16 +70,17 @@ if [[ $count -eq 20 ]]; then
   exit 1
 fi
 
-STATUS=$(kubectl get Ibmcpd ibmcpd-cr -n "${NAMESPACE}" -o jsonpath="{.status.controlPlaneStatus}")
+STATUS=$(kubectl get Ibmcpd ibmcpd-cr -n "${NAMESPACE}" -o jsonpath="{.status.controlPlaneStatus}{'\n'}")
 count=0
-until [[ $STATUS == "Completed" ]] || [[ $count -eq 20 ]]; do
-  echo "ibmcpd/ibmcpd-cr status: ${STATUS}"
-  STATUS=$(kubectl get Ibmcpd ibmcpd-cr -n "${NAMESPACE}" -o jsonpath="{.status.controlPlaneStatus}")
+until [[ $STATUS == "Completed" ]] || [[ $count -eq 360 ]]; do
+  ELAPSED=$((count*15/60))
+  echo "ibmcpd/ibmcpd-cr status: ${STATUS} - $ELAPSED of 90min elapsed"
+  STATUS=$(kubectl get Ibmcpd ibmcpd-cr -n "${NAMESPACE}" -o jsonpath="{.status.controlPlaneStatus}{'\n'}")
   count=$((count + 1))
   sleep 15
 done
 
-if [[ $count -eq 20 ]]; then
+if [[ $count -eq 360 ]]; then
   echo "Timed out waiting for ibmcpd/ibmcpd-cr to achieve Completed status"
   kubectl get ibmcpd ibmcpd-cr -n "${NAMESPACE}" -o yaml
   exit 1
@@ -87,16 +88,17 @@ fi
 
 
 
-STATUS=$(kubectl get ZenService lite-cr -n "${NAMESPACE}" -o jsonpath="{.status.zenStatus}")
+STATUS=$(kubectl get ZenService lite-cr -n "${NAMESPACE}" -o jsonpath="{.status.zenStatus}{'\n'}")
 count=0
-until [[ $STATUS == "Completed" ]] || [[ $count -eq 20 ]]; do
-  echo "ZenService/lite-cr status: ${STATUS}"
-  STATUS=$(kubectl get ZenService lite-cr -n "${NAMESPACE}" -o jsonpath="{.status.zenStatus}")
+until [[ $STATUS == "Completed" ]] || [[ $count -eq 360 ]]; do
+  ELAPSED=$((count*15/60))
+  echo "ZenService/lite-cr status: ${STATUS} - $ELAPSED of 90min elapsed"
+  STATUS=$(kubectl get ZenService lite-cr -n "${NAMESPACE}" -o jsonpath="{.status.zenStatus}{'\n'}")
   count=$((count + 1))
   sleep 15
 done
 
-if [[ $count -eq 20 ]]; then
+if [[ $count -eq 360 ]]; then
   echo "Timed out waiting for ZenService/lite-cr to achieve Completed status"
   kubectl get get ZenService lite-cr -n "${NAMESPACE}" -o yaml
   exit 1
