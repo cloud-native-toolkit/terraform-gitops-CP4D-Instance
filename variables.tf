@@ -101,5 +101,5 @@ variable license_type {
 variable "storage_vendor" {
   type = string
   description = "Storage vendor for CPD (ocs | portworx | ibm-spectrum-scale-sc | RWX-storage-class)"
-  default = "ocs"
+  default = "portworx"
 }

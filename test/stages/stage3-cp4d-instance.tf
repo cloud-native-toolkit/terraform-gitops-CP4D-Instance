@@ -1,4 +1,4 @@
-module "gitops_module" {
+module "cp4d-instance" {
   source = "./module"
 
   depends_on = [
