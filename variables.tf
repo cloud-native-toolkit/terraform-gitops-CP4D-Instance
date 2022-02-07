@@ -103,3 +103,9 @@ variable "storage_vendor" {
   description = "Storage vendor for CPD (ocs | portworx | ibm-spectrum-scale-sc | RWX-storage-class)"
   default = "portworx"
 }
+
+# variable "entitlement_key" {
+#   type        = string
+#   description = "The entitlement key required to access Cloud Pak images"
+#   sensitive   = true
+# }

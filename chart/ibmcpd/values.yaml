@@ -8,3 +8,8 @@ cp4d_instance_name: ibmcpd-cr
 license_accept: true
 license: Enterprise
 storage_vendor: portworx
+
+    # account:
+    #   imagePullSecrets:
+    #    - ibm-entitlement-key-s      
+    #   privileged: true
