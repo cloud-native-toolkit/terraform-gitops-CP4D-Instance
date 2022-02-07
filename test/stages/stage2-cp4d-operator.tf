@@ -8,4 +8,5 @@ module "gitops_cp4d_operator" {
   git_credentials = module.gitops.git_credentials
   server_name = module.gitops.server_name
   kubeseal_cert = module.gitops.sealed_secrets_cert
+  namespace = module.gitops_namespace.name
 }
