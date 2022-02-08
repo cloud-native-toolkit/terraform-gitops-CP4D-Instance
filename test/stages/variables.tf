@@ -94,8 +94,8 @@ variable "entitlement_key" {
 
 
 
-variable "common_services_namespace" {
+variable "cpd_common_services_namespace" {
   type        = string
-  description = "Namespace for tools"
+  description = "Namespace for cpd commmon services"
   default = "ibm-common-services"
 }

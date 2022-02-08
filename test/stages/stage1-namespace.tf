@@ -19,5 +19,21 @@ module "gitops_cs_namespace" {
 
   gitops_config = module.gitops.gitops_config
   git_credentials = module.gitops.git_credentials
-  name = var.common_services_namespace
+  name = var.cpd_common_services_namespace
 }
+
+
+module pull_secret {
+  source = "github.com/cloud-native-toolkit/terraform-gitops-pull-secret"
+
+  gitops_config = var.gitops_config
+  git_credentials = var.git_credentials
+  server_name = var.server_name
+  kubeseal_cert = var.kubeseal_cert
+  namespace = var.cpd_common_services_namespace
+  docker_username = "cp"
+  docker_password = var.entitlement_key
+  docker_server   = "cp.icr.io"
+  secret_name     = "ibm-entitlement-key"
+}
+
