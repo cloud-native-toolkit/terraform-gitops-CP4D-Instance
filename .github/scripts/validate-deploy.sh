@@ -58,13 +58,13 @@ until [[ $count -eq 0 ]]; do
 done
 
 count=0
-until kubectl get ibmcpd ibmcpd-cr -n "${NAMESPACE}" || [[ $count -eq 20 ]]; do
+until kubectl get ibmcpd ibmcpd-cr -n "${NAMESPACE}" || [[ $count -eq 40 ]]; do
   echo "Waiting for ibmcpd/ibmcpd-cr in ${NAMESPACE}"
   count=$((count + 1))
   sleep 15
 done
 
-if [[ $count -eq 20 ]]; then
+if [[ $count -eq 40 ]]; then
   echo "Timed out waiting for ibmcpd/ibmcpd-cr in ${NAMESPACE}"
   kubectl get all -n "${NAMESPACE}"
   exit 1
