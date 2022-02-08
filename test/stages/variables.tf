@@ -92,3 +92,10 @@ variable "entitlement_key" {
 }
 
 
+
+
+variable "common_services_namespace" {
+  type        = string
+  description = "Namespace for tools"
+  default = "ibm-common-services"
+}

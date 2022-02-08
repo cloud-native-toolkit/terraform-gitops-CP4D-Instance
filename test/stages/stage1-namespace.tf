@@ -11,3 +11,13 @@ resource null_resource write_namespace {
     command = "echo -n '${module.gitops_namespace.name}' > .namespace"
   }
 }
+
+
+
+module "gitops_cs_namespace" {
+  source = "github.com/cloud-native-toolkit/terraform-gitops-namespace.git"
+
+  gitops_config = module.gitops.gitops_config
+  git_credentials = module.gitops.git_credentials
+  name = var.common_services_namespace
+}
