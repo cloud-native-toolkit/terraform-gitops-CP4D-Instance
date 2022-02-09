@@ -32,7 +32,7 @@ module "gitops_cpd_operator_namespace" {
   create_operator_group = true
 }
 
-module pull_secret {
+module cs_pull_secret {
   source = "github.com/cloud-native-toolkit/terraform-gitops-pull-secret"
 
   gitops_config = module.gitops.gitops_config
@@ -45,7 +45,7 @@ module pull_secret {
   docker_server   = "cp.icr.io"
   secret_name     = "ibm-entitlement-key"
 }
-module pull_secret {
+module cpd_pull_secret {
   source = "github.com/cloud-native-toolkit/terraform-gitops-pull-secret"
 
   gitops_config = module.gitops.gitops_config
