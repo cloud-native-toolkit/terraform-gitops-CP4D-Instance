@@ -45,4 +45,17 @@ module pull_secret {
   docker_server   = "cp.icr.io"
   secret_name     = "ibm-entitlement-key"
 }
+module pull_secret {
+  source = "github.com/cloud-native-toolkit/terraform-gitops-pull-secret"
+
+  gitops_config = module.gitops.gitops_config
+  git_credentials = module.gitops.git_credentials
+  server_name = module.gitops.server_name
+  kubeseal_cert = module.gitops.sealed_secrets_cert
+  namespace = var.cpd_operator_namespace
+  docker_username = "cp"
+  docker_password = var.entitlement_key
+  docker_server   = "cp.icr.io"
+  secret_name     = "ibm-entitlement-key"
+}
 
