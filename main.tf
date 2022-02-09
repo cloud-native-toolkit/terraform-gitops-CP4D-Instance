@@ -6,6 +6,7 @@ locals {
   values_content = {
     cp4d_namespace = var.namespace
     cp4d_instance_name = var.cp4d_instance_name
+    cpd_operator_namespace = var.cpd_operator_namespace
     license_accept = var.license_accept
     license = var.license_type
     storage_vendor = var.storage_vendor

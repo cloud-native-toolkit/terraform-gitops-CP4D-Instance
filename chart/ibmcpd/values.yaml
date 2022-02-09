@@ -8,6 +8,7 @@ cp4d_instance_name: ibmcpd-cr
 license_accept: true
 license: Enterprise
 storage_vendor: portworx
+cpd_operator_namespace: ibm-common-services
 
     # account:
     #   imagePullSecrets:

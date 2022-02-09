@@ -68,6 +68,12 @@ variable "namespace" {
   description = "The namespace where the application should be deployed"
 }
 
+variable "cpd_operator_namespace" {
+  type        = string
+  description = "The namespace where the application should be deployed"
+  default     = "ibm-common-services"
+}
+
 variable "kubeseal_cert" {
   type        = string
   description = "The certificate/public key used to encrypt the sealed secrets"
