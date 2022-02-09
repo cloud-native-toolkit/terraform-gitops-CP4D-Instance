@@ -101,7 +101,7 @@ variable "cpd_common_services_namespace" {
 }
 
 
-variable "cpd_operators_namespace" {
+variable "cpd_operator_namespace" {
   type        = string
   description = "Namespace for cpd commmon services"
   default = "cpd_operators"
