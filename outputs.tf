@@ -34,9 +34,3 @@ output "type" {
   value       = local.type
   depends_on  = [null_resource.setup_gitops]
 }
-
-output "namespace" {
-  description = "The namespace where CPD instance is deployed"
-  value       = var.namespace
-  depends_on  = [null_resource.setup_gitops]
-}
