@@ -99,3 +99,10 @@ variable "cpd_common_services_namespace" {
   description = "Namespace for cpd commmon services"
   default = "ibm-common-services"
 }
+
+
+variable "cpd_operators_namespace" {
+  type        = string
+  description = "Namespace for cpd commmon services"
+  default = "cpd_operators"
+}
