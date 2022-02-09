@@ -14,14 +14,14 @@ resource null_resource write_namespace {
 
 
 
-# module "gitops_cs_namespace" {
-#   source = "github.com/cloud-native-toolkit/terraform-gitops-namespace.git"
+module "gitops_cs_namespace" {
+  source = "github.com/cloud-native-toolkit/terraform-gitops-namespace.git"
 
-#   gitops_config = module.gitops.gitops_config
-#   git_credentials = module.gitops.git_credentials
-#   name = var.cpd_common_services_namespace
-#   create_operator_group = true
-# }
+  gitops_config = module.gitops.gitops_config
+  git_credentials = module.gitops.git_credentials
+  name = var.cpd_common_services_namespace
+  create_operator_group = false
+}
 
 module "gitops_cpd_operator_namespace" {
   source = "github.com/cloud-native-toolkit/terraform-gitops-namespace.git"
