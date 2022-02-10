@@ -7,6 +7,9 @@ module "gitops_namespace" {
 }
 
 module "gitops_cs_namespace" {
+  depends_on = [
+    module.gitops_namespace
+  ]
   source = "github.com/cloud-native-toolkit/terraform-gitops-namespace.git"
 
   gitops_config = module.gitops.gitops_config
@@ -16,6 +19,9 @@ module "gitops_cs_namespace" {
 }
 
 module "gitops_cpd_operator_namespace" {
+  depends_on = [
+    module.gitops_cs_namespace
+  ]
   source = "github.com/cloud-native-toolkit/terraform-gitops-namespace.git"
 
   gitops_config = module.gitops.gitops_config
