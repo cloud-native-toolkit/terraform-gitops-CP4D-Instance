@@ -45,6 +45,9 @@ resource null_resource write_namespace {
 
 
 module cs_pull_secret {
+  depends_on = [
+    module.gitops_cpd_operator_namespace
+  ]
   source = "github.com/cloud-native-toolkit/terraform-gitops-pull-secret"
 
   gitops_config = module.gitops.gitops_config
@@ -58,6 +61,9 @@ module cs_pull_secret {
   secret_name     = "ibm-entitlement-key"
 }
 module cpd_pull_secret {
+  depends_on = [
+    module.cs_pull_secret
+  ]
   source = "github.com/cloud-native-toolkit/terraform-gitops-pull-secret"
 
   gitops_config = module.gitops.gitops_config
