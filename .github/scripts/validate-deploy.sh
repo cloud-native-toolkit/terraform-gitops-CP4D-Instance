@@ -5,6 +5,8 @@ GIT_TOKEN=$(cat git_token)
 
 export KUBECONFIG=$(cat .kubeconfig)
 NAMESPACE=$(cat .namespace)
+CS_NAMESPACE=$(cat .cs_namespace)
+OP_NAMESPACE=$(cat .operator_namespace)
 COMPONENT_NAME=$(jq -r '.name // "cp4d-instance"' gitops-output.json)
 BRANCH=$(jq -r '.branch // "main"' gitops-output.json)
 SERVER_NAME=$(jq -r '.server_name // "default"' gitops-output.json)
@@ -49,6 +51,37 @@ else
   echo "Found namespace: ${NAMESPACE}"
   sleep 30
 fi
+
+count=0
+until kubectl get namespace "${CS_NAMESPACE}" 1> /dev/null 2> /dev/null || [[ $count -eq 20 ]]; do
+  echo "Waiting for namespace: ${CS_NAMESPACE}"
+  count=$((count + 1))
+  sleep 15
+done
+
+if [[ $count -eq 20 ]]; then
+  echo "Timed out waiting for namespace: ${CS_NAMESPACE}"
+  exit 1
+else
+  echo "Found namespace: ${CS_NAMESPACE}"
+  sleep 30
+fi
+
+count=0
+until kubectl get namespace "${OP_NAMESPACE}" 1> /dev/null 2> /dev/null || [[ $count -eq 20 ]]; do
+  echo "Waiting for namespace: ${OP_NAMESPACE}"
+  count=$((count + 1))
+  sleep 15
+done
+
+if [[ $count -eq 20 ]]; then
+  echo "Timed out waiting for namespace: ${OP_NAMESPACE}"
+  exit 1
+else
+  echo "Found namespace: ${OP_NAMESPACE}"
+  sleep 30
+fi
+
 
 count=180
 until [[ $count -eq 0 ]]; do

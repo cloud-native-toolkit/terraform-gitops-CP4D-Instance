@@ -6,14 +6,6 @@ module "gitops_namespace" {
   name = var.namespace
 }
 
-resource null_resource write_namespace {
-  provisioner "local-exec" {
-    command = "echo -n '${module.gitops_namespace.name}' > .namespace"
-  }
-}
-
-
-
 module "gitops_cs_namespace" {
   source = "github.com/cloud-native-toolkit/terraform-gitops-namespace.git"
 
@@ -31,6 +23,20 @@ module "gitops_cpd_operator_namespace" {
   name = var.cpd_operator_namespace
   create_operator_group = true
 }
+
+
+resource null_resource write_namespace {
+  provisioner "local-exec" {
+    command = "echo -n '${module.gitops_namespace.name}' > .namespace"
+  }
+  provisioner "local-exec" {
+    command = "echo -n '${module.gitops_cs_namespace.name}' > .cs_namespace"
+  }
+  provisioner "local-exec" {
+    command = "echo -n '${module.gitops_cpd_operator_namespace.name}' > .operator_namespace"
+  }
+}
+
 
 module cs_pull_secret {
   source = "github.com/cloud-native-toolkit/terraform-gitops-pull-secret"
