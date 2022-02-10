@@ -71,7 +71,7 @@ variable "namespace" {
 variable "cpd_operator_namespace" {
   type        = string
   description = "The namespace where the application should be deployed"
-  default     = "cpd_operators"
+  default     = "cpd-operators"
 }
 
 variable "kubeseal_cert" {
