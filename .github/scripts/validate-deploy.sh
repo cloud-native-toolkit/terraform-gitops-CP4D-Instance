@@ -133,11 +133,11 @@ done
 
 if [[ $count -eq 360 ]]; then
   echo "Timed out waiting for ZenService/lite-cr to achieve Completed status"
-  kubectl get get ZenService lite-cr -n "${NAMESPACE}" -o yaml
+  kubectl get ZenService lite-cr -n "${NAMESPACE}" -o yaml
   exit 1
 fi
 
-kubectl get get ZenService lite-cr -n "${NAMESPACE}" -o yaml
+kubectl get ZenService lite-cr -n "${NAMESPACE}" -o yaml
 
 
 cd ..
