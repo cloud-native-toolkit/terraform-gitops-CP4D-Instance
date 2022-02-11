@@ -68,6 +68,12 @@ variable "namespace" {
   description = "The namespace where the application should be deployed"
 }
 
+variable "cpd_operator_namespace" {
+  type        = string
+  description = "The namespace where the application should be deployed"
+  default     = "cpd-operators"
+}
+
 variable "kubeseal_cert" {
   type        = string
   description = "The certificate/public key used to encrypt the sealed secrets"
@@ -79,3 +85,33 @@ variable "server_name" {
   description = "The name of the server"
   default     = "default"
 }
+
+
+variable cp4d_instance_name {
+  type = string
+  description = "CP4D instance name.  Default is ibmcpd-cr"
+  default = "ibmcpd-cr"
+}
+
+variable license_accept {
+  type = bool
+  description = "License acceptance"
+  default = "true"
+}
+variable license_type {
+  type = string
+  description = "License type (Enterprise | Standard)"
+  default = "Enterprise"
+}
+
+variable "storage_vendor" {
+  type = string
+  description = "Storage vendor for CPD (ocs | portworx | ibm-spectrum-scale-sc | RWX-storage-class)"
+  default = "portworx"
+}
+
+# variable "entitlement_key" {
+#   type        = string
+#   description = "The entitlement key required to access Cloud Pak images"
+#   sensitive   = true
+# }

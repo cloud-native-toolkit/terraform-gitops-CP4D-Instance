@@ -1,0 +1,10 @@
+apiVersion: operator.ibm.com/v1
+kind: NamespaceScope
+metadata:
+  name: cpd-operators
+  namespace: {{ .Values.cpd_operator_namespace }}         # (Default) Replace with the Cloud Pak for Data platform operator project name 
+spec:
+  csvInjector:                    
+    enable: true
+  namespaceMembers:
+  - {{ .Values.cpd_operator_namespace }}                 # (Default) Replace with the Cloud Pak for Data platform operator project name

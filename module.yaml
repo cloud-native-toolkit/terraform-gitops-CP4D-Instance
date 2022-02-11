@@ -1,6 +1,6 @@
-name: ""
+name: "cp4d-instance"
 type: gitops
-description: ""
+description: "GitOps module to create a CP4D instance"
 tags:
   - tools
   - gitops

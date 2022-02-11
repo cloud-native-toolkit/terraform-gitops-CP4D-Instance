@@ -5,7 +5,9 @@ GIT_TOKEN=$(cat git_token)
 
 export KUBECONFIG=$(cat .kubeconfig)
 NAMESPACE=$(cat .namespace)
-COMPONENT_NAME=$(jq -r '.name // "my-module"' gitops-output.json)
+CS_NAMESPACE=$(cat .cs_namespace)
+OP_NAMESPACE=$(cat .operator_namespace)
+COMPONENT_NAME=$(jq -r '.name // "cp4d-instance"' gitops-output.json)
 BRANCH=$(jq -r '.branch // "main"' gitops-output.json)
 SERVER_NAME=$(jq -r '.server_name // "default"' gitops-output.json)
 LAYER=$(jq -r '.layer_dir // "2-services"' gitops-output.json)
@@ -46,25 +48,97 @@ if [[ $count -eq 20 ]]; then
   echo "Timed out waiting for namespace: ${NAMESPACE}"
   exit 1
 else
-  echo "Found namespace: ${NAMESPACE}. Sleeping for 30 seconds to wait for everything to settle down"
+  echo "Found namespace: ${NAMESPACE}"
   sleep 30
 fi
 
-DEPLOYMENT="${COMPONENT_NAME}-${BRANCH}"
 count=0
-until kubectl get deployment "${DEPLOYMENT}" -n "${NAMESPACE}" || [[ $count -eq 20 ]]; do
-  echo "Waiting for deployment/${DEPLOYMENT} in ${NAMESPACE}"
+until kubectl get namespace "${CS_NAMESPACE}" 1> /dev/null 2> /dev/null || [[ $count -eq 20 ]]; do
+  echo "Waiting for namespace: ${CS_NAMESPACE}"
   count=$((count + 1))
   sleep 15
 done
 
 if [[ $count -eq 20 ]]; then
-  echo "Timed out waiting for deployment/${DEPLOYMENT} in ${NAMESPACE}"
+  echo "Timed out waiting for namespace: ${CS_NAMESPACE}"
+  exit 1
+else
+  echo "Found namespace: ${CS_NAMESPACE}"
+  sleep 30
+fi
+
+count=0
+until kubectl get namespace "${OP_NAMESPACE}" 1> /dev/null 2> /dev/null || [[ $count -eq 20 ]]; do
+  echo "Waiting for namespace: ${OP_NAMESPACE}"
+  count=$((count + 1))
+  sleep 15
+done
+
+if [[ $count -eq 20 ]]; then
+  echo "Timed out waiting for namespace: ${OP_NAMESPACE}"
+  exit 1
+else
+  echo "Found namespace: ${OP_NAMESPACE}"
+  sleep 30
+fi
+
+
+count=180
+until [[ $count -eq 0 ]]; do
+  echo "Pausing for $count seconds to wait for everything to settle down"
+  count=$((count - 10))
+  sleep 10
+done
+
+count=0
+until kubectl get ibmcpd ibmcpd-cr -n "${NAMESPACE}" || [[ $count -eq 40 ]]; do
+  echo "Waiting for ibmcpd/ibmcpd-cr in ${NAMESPACE}"
+  count=$((count + 1))
+  sleep 15
+done
+
+if [[ $count -eq 40 ]]; then
+  echo "Timed out waiting for ibmcpd/ibmcpd-cr in ${NAMESPACE}"
   kubectl get all -n "${NAMESPACE}"
   exit 1
 fi
 
-kubectl rollout status "deployment/${DEPLOYMENT}" -n "${NAMESPACE}" || exit 1
+STATUS=$(kubectl get Ibmcpd ibmcpd-cr -n "${NAMESPACE}" -o jsonpath="{.status.controlPlaneStatus}{'\n'}")
+count=0
+until [[ $STATUS == "Completed" ]] || [[ $count -eq 360 ]]; do
+  ELAPSED=$((100*count*15/60))
+  echo "ibmcpd/ibmcpd-cr status: ${STATUS}  ($(echo $ELAPSED | sed -e 's/..$/.&/;t' -e 's/.$/.0&/') of 90 minutes elapsed)"
+  STATUS=$(kubectl get Ibmcpd ibmcpd-cr -n "${NAMESPACE}" -o jsonpath="{.status.controlPlaneStatus}{'\n'}")
+  count=$((count + 1))
+  sleep 15
+done
+
+if [[ $count -eq 360 ]]; then
+  echo "Timed out waiting for ibmcpd/ibmcpd-cr to achieve Completed status"
+  kubectl get ibmcpd ibmcpd-cr -n "${NAMESPACE}" -o yaml
+  exit 1
+fi
+
+
+
+STATUS=$(kubectl get ZenService lite-cr -n "${NAMESPACE}" -o jsonpath="{.status.zenStatus}{'\n'}")
+count=0
+until [[ $STATUS == "Completed" ]] || [[ $count -eq 360 ]]; do
+  ELAPSED=$((100*count*15/60))
+  echo "ZenService/lite-cr status: ${STATUS}  ($(echo $ELAPSED | sed -e 's/..$/.&/;t' -e 's/.$/.0&/') of 90 minutes elapsed)"
+  STATUS=$(kubectl get ZenService lite-cr -n "${NAMESPACE}" -o jsonpath="{.status.zenStatus}{'\n'}")
+  count=$((count + 1))
+  sleep 15
+done
+
+if [[ $count -eq 360 ]]; then
+  echo "Timed out waiting for ZenService/lite-cr to achieve Completed status"
+  kubectl get ZenService lite-cr -n "${NAMESPACE}" -o yaml
+  exit 1
+fi
+
+kubectl get ZenService lite-cr -n "${NAMESPACE}" -o yaml
+
 
 cd ..
 rm -rf .testrepo
