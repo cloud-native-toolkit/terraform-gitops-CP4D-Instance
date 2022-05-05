@@ -86,7 +86,7 @@ variable "kubeseal_namespace" {
   default = "sealed-secrets"
 }
 
-variable "entitlement_key" {
+variable "cp_entitlement_key" {
   type        = string
   description = "The entitlement key required to access Cloud Pak images"
 }

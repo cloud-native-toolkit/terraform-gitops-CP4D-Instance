@@ -57,7 +57,7 @@ module cs_pull_secret {
   kubeseal_cert = module.gitops.sealed_secrets_cert
   namespace = var.cpd_common_services_namespace
   docker_username = "cp"
-  docker_password = var.entitlement_key
+  docker_password = var.cp_entitlement_key
   docker_server   = "cp.icr.io"
   secret_name     = "ibm-entitlement-key"
 }
@@ -73,7 +73,7 @@ module cpd_pull_secret {
   kubeseal_cert = module.gitops.sealed_secrets_cert
   namespace = var.cpd_operator_namespace
   docker_username = "cp"
-  docker_password = var.entitlement_key
+  docker_password = var.cp_entitlement_key
   docker_server   = "cp.icr.io"
   secret_name     = "ibm-entitlement-key"
 }
