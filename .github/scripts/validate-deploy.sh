@@ -19,9 +19,6 @@ git clone https://${GIT_TOKEN}@${GIT_REPO} .testrepo
 
 cd .testrepo || exit 1
 
-#code for cleanup
-oc delete namespacescope cpd-operators -n cpd-operators
-
 find . -name "*"
 
 if [[ ! -f "argocd/${LAYER}/cluster/${SERVER_NAME}/${TYPE}/${NAMESPACE}-${COMPONENT_NAME}.yaml" ]]; then
