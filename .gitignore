@@ -4,3 +4,6 @@
 test/stages/module
 test/stages/.terraform
 test/stages/localtest.tfvars
+terraform.tfstate
+terraform.tfstate.backup
+.terraform/
