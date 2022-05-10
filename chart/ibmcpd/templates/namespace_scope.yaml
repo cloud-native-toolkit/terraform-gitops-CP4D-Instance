@@ -8,3 +8,4 @@ spec:
     enable: true
   namespaceMembers:
   - {{ .Values.cpd_operator_namespace }}                 # (Default) Replace with the Cloud Pak for Data platform operator project name
+  - {{ .Values.cp4d_namespace }}                         # (Default) Replace with the Cloud Pak for Data instance project name
