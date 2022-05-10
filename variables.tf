@@ -75,6 +75,13 @@ variable "cpd_operator_namespace" {
   default     = "cpd-operators"
 }
 
+variable "cpd_common_services_namespace" {
+  type        = string
+  description = "Namespace for cpd commmon services"
+  default = "ibm-common-services"
+}
+
+
 variable "kubeseal_cert" {
   type        = string
   description = "The certificate/public key used to encrypt the sealed secrets"
