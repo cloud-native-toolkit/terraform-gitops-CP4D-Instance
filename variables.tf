@@ -66,6 +66,7 @@ variable "git_credentials" {
 variable "namespace" {
   type        = string
   description = "The namespace where the application should be deployed"
+  default     = "gitops-cp4d-namespace"
 }
 
 variable "cpd_operator_namespace" {
