@@ -1,8 +1,0 @@
-name: "cp4d-instance"
-type: gitops
-description: "GitOps module to create a CP4D instance"
-tags:
-  - tools
-  - gitops
-versions: []
-id: github.dev/cloud-native-toolkit/terraform-gitops-cp4d-instance
