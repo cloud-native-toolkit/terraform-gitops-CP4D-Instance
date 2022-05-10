@@ -1,4 +1,7 @@
 module "gitops_ibm_catalogs" {
+  depends_on = [
+    module.gitops_cpd_operator_namespace
+  ]
    source = "github.com/cloud-native-toolkit/terraform-gitops-cp-catalogs.git"
 
   gitops_config = module.gitops.gitops_config
