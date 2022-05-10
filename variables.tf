@@ -95,18 +95,18 @@ variable "server_name" {
 }
 
 
-variable cp4d_instance_name {
+variable "cp4d_instance_name" {
   type = string
   description = "CP4D instance name.  Default is ibmcpd-cr"
   default = "ibmcpd-cr"
 }
 
-variable license_accept {
+variable "license_accept" {
   type = bool
   description = "License acceptance"
   default = "true"
 }
-variable license_type {
+variable "license_type" {
   type = string
   description = "License type (Enterprise | Standard)"
   default = "Enterprise"
