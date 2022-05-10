@@ -1,5 +1,5 @@
 module "gitops" {
-  source = "github.com/cloud-native-toolkit/terraform-tools-gitops"
+   source = "github.com/cloud-native-toolkit/terraform-tools-gitops"
 
   host = var.git_host
   type = var.git_type

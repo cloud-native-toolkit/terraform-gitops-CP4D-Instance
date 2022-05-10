@@ -1,5 +1,18 @@
 
 # Resource Group Variables
+
+
+variable cluster_username { 
+  type        = string
+  description = "The username for AWS access"
+}
+
+variable "cluster_password" {
+  type        = string
+  description = "The password for AWS access"
+}
+
+
 variable "resource_group_name" {
   type        = string
   description = "Existing resource group where the IKS cluster will be provisioned."
