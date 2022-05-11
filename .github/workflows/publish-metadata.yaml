@@ -8,5 +8,7 @@ on:
 jobs:
   publish-assets:
     uses: cloud-native-toolkit/action-workflows/.github/workflows/publish-metadata.yaml@v1
+    with:
+      validate: false
     secrets:
       TOKEN: ${{ secrets.GITHUB_TOKEN }}
