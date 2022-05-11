@@ -81,7 +81,6 @@ variable "cpd_common_services_namespace" {
   default = "ibm-common-services"
 }
 
-
 variable "kubeseal_cert" {
   type        = string
   description = "The certificate/public key used to encrypt the sealed secrets"
@@ -94,7 +93,6 @@ variable "server_name" {
   default     = "default"
 }
 
-
 variable "cp4d_instance_name" {
   type = string
   description = "CP4D instance name.  Default is ibmcpd-cr"
@@ -104,8 +102,9 @@ variable "cp4d_instance_name" {
 variable "license_accept" {
   type = bool
   description = "License acceptance"
-  default = "true"
+  default = true
 }
+
 variable "license_type" {
   type = string
   description = "License type (Enterprise | Standard)"
