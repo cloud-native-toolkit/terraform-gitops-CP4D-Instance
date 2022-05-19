@@ -21,7 +21,7 @@ versions:
             version: ">= 1.0.0"
       - id: gitops-cp4d-operator
         refs:
-          - source: https://github.com/cloud-native-toolkit/terraform-gitops-cp4d-operator.git
+          - source: github.com/cloud-native-toolkit/terraform-gitops-cp4d-operator.git
             version: ">= 1.0.0"
     variables:
       - name: gitops_config
