@@ -5,7 +5,6 @@ module "cp4d-instance" {
     module.gitops_cp4d_operator,
     module.gitops_global_pullsecret_synch
   ]
-  ]
 
   gitops_config = module.gitops.gitops_config
   git_credentials = module.gitops.git_credentials
