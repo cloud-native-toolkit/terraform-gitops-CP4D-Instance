@@ -2,9 +2,9 @@ module "cp4d-instance" {
   source = "./module"
 
   depends_on = [
-    module.gitops_cp4d_operator
-    #,
-    #module.gitops_cp_foundation
+    module.gitops_cp4d_operator,
+    module.gitops_global_pullsecret_synch
+  ]
   ]
 
   gitops_config = module.gitops.gitops_config
