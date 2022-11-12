@@ -9,7 +9,7 @@
 
 module "gitops_cs_namespace" {
   depends_on = [
-    module.gitops_namespace
+    module.dev_tools_namespace
   ]
   source = "github.com/cloud-native-toolkit/terraform-gitops-namespace.git"
 
