@@ -1,15 +1,15 @@
-module "gitops_namespace" {
-  source = "github.com/cloud-native-toolkit/terraform-gitops-namespace.git"
+# module "gitops_namespace" {
+#   source = "github.com/cloud-native-toolkit/terraform-gitops-namespace.git"
 
-  gitops_config = module.gitops.gitops_config
-  git_credentials = module.gitops.git_credentials
-  name = var.namespace
-  create_operator_group = false
-}
+#   gitops_config = module.gitops.gitops_config
+#   git_credentials = module.gitops.git_credentials
+#   name = var.namespace
+#   create_operator_group = false
+# }
 
 module "gitops_cs_namespace" {
   depends_on = [
-    module.gitops_namespace
+    module.dev_tools_namespace
   ]
   source = "github.com/cloud-native-toolkit/terraform-gitops-namespace.git"
 
@@ -34,7 +34,7 @@ module "gitops_cpd_operator_namespace" {
 
 resource null_resource write_namespace {
   provisioner "local-exec" {
-    command = "echo -n '${module.gitops_namespace.name}' > .namespace"
+    command = "echo -n '${module.dev_tools_namespace.name}' > .namespace"
   }
   provisioner "local-exec" {
     command = "echo -n '${module.gitops_cs_namespace.name}' > .cs_namespace"
